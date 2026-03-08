@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  // Core identity fields
+  id                                String    @id @default(uuid())
+  name                              String
+  email                             String    @unique
+  password                          String    @default("$2b$10$defaultpasswordhash")
+  
+  // Contact and personal information
+  phone                             String?
+  countryOfResidence                String?
+  passportNumber                    String?
+  nationality                       String?
+  
+  // Email verification
+  isEmailVerified                   Boolean   @default(false)
+  emailVerificationToken            String?   @unique
+  emailVerificationExpires          DateTime?
+  
+  // Password reset
+  resetPasswordToken                String?   @unique
+  resetPasswordExpires              DateTime?
+  
+  // Equivalence form submission tracking
+  isSendingFormulaireEquivalence    Boolean   @default(false)
+  equivalenceStatus                 String?
+  equivalenceRejectedAt             DateTime?
+  equivalenceRejectionReason        String?
+  folderEquivalence                 String?
+  
+  // Residence form submission tracking
+  isSendingFormulaireResidence      Boolean   @default(false)
+  residenceStatus                   String?
+  residenceRejectedAt               DateTime?
+  residenceRejectionReason          String?
+  folderResidence                   String?
+  
+  // Partner submission tracking
+  isSendingPartners                 Boolean   @default(false)
+  partnerStatus                     String?
+  partnerRejectedAt                 DateTime?
+  partnerRejectionReason            String?
+  
+  // Profile evaluation service
+  profileEvaluationStatus           String?
+  profileEvaluationRejectedAt       DateTime?
+  profileEvaluationRejectionReason  String?
+  
+  // TCF preparation service
+  tcfPreparationStatus              String?
+  tcfPreparationRejectedAt          DateTime?
+  tcfPreparationRejectionReason     String?
+  
+  // Timestamps
+  createdAt                         DateTime  @default(now())
+  updatedAt                         DateTime  @updatedAt
+  
+  // Relations
+  formSubmissions                   FormSubmission[]
+  messages                          Message[]
+}
+
+model Admin {
+  // Core identity fields
+  id                        String   @id @default(uuid())
+  username                  String   @unique
+  email                     String?
+  password                  String
+  role                      String   @default("admin")
+  
+  // Email verification
+  isEmailVerified           Boolean  @default(false)
+  emailVerificationToken    String?  @unique
+  emailVerificationExpires  DateTime?
+  
+  // Password reset
+  resetPasswordToken        String?  @unique
+  resetPasswordExpires      DateTime?
+  
+  // Timestamps
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+model FormSubmission {
+  // Core identity
+  id        String   @id @default(uuid())
+  
+  // Form data
+  type      String
+  data      Json
+  fileUrl   String?
+  
+  // Client relationship
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  
+  @@index([clientId])
+}
+
+model PartnerSubmission {
+  // Core identity
+  id        String   @id @default(uuid())
+  
+  // Submission data
+  type      String   @default("PARTNER")
+  data      Json
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  // Core identity
+  id        String   @id @default(uuid())
+  
+  // Post content
+  title     String
+  content   String   @db.Text
+  imgUrl    String
+  
+  // Engagement and publication
+  likes     String[] @default([])
+  published Boolean  @default(true)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published])
+  @@index([createdAt])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  subject   String
+  content   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([clientId])
+}

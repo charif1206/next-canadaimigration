@@ -1,0 +1,70 @@
+'use client';
+
+import React from 'react';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { FormSection, FormStatusDisplay, ResubmissionWarning } from '@/components/forms';
+import { FormulaireEquivalence } from '@/components/forms/FormulaireEquivalence';
+import { BackToFormsLink } from '@/components/forms/BackToFormsLink';
+import { FormPageHeader } from '@/components/forms/FormPageHeader';
+import { useFormState } from '@/lib/hooks/useFormState';
+import { FORM_TYPES, FORM_METADATA } from '@/lib/constants/forms.constants';
+
+/**
+ * Equivalence Form Page
+ * Handles equivalence diploma form submission and status display
+ */
+const EquivalenceFormPage: React.FC = () => {
+  const {
+    isSendingTemporarily,
+    canResubmit,
+    isFormSending,
+    formStatus,
+    rejectedAt,
+    rejectionReason,
+    handleFormSubmit,
+  } = useFormState(FORM_TYPES.EQUIVALENCE);
+
+  const metadata = FORM_METADATA.equivalence;
+  const isValidated = formStatus === 'validated';
+  const shouldShowForm = canResubmit && !isSendingTemporarily && !isValidated;
+  const shouldShowStatus = (isFormSending && !canResubmit) || isSendingTemporarily || isValidated;
+
+  return (
+    <ProtectedRoute>
+      <div className="py-12 sm:py-16 md:py-20 bg-slate-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back Link */}
+          <BackToFormsLink />
+
+          {/* Page Header */}
+          <FormPageHeader
+            icon={metadata.icon}
+            title={`Formulaire ${metadata.title}`}
+            description={metadata.description}
+          />
+
+          {/* Form Content */}
+          <FormSection id="equivalence" title="" subtitle="">
+            {shouldShowStatus ? (
+              <FormStatusDisplay
+                status={isSendingTemporarily ? 'pending' : formStatus}
+                rejectedAt={rejectedAt}
+                rejectionReason={rejectionReason}
+                formTitle={`Formulaire ${metadata.title}`}
+              />
+            ) : (
+              <>
+                {formStatus === 'rejected' && canResubmit && (
+                  <ResubmissionWarning />
+                )}
+                <FormulaireEquivalence onSubmitSuccess={handleFormSubmit} />
+              </>
+            )}
+          </FormSection>
+        </div>
+      </div>
+    </ProtectedRoute>
+  );
+};
+
+export default EquivalenceFormPage;

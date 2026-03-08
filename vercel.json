@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "canada-immigration-frontend",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}
