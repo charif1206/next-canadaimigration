@@ -1,10 +1,8 @@
 {
   "version": 2,
   "name": "canada-immigration-frontend",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ]
+  "framework": "nextjs",
+  "installCommand": "npm ci",
+  "buildCommand": "npx prisma generate && next build",
+  "outputDirectory": ".next"
 }

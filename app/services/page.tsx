@@ -22,14 +22,7 @@ const serviceData: Service[] = [
         buttonLink: 'forms/equivalence',
         requiresEquivalenceValidation: false,
     },
-    {
-        icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
-        title: "Évaluation de profil",
-        description: "Découvrez vos chances d'immigrer au Canada selon votre âge, diplôme, expérience et profil linguistique.",
-        buttonText: "Évaluer mon profil",
-        buttonLink: '/profilEvaluation',
-        requiresEquivalenceValidation: true,
-    },
+
     {
         icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>,
         title: "Préparation TCF Canada",
@@ -46,14 +39,7 @@ const serviceData: Service[] = [
         buttonLink: 'forms/residence',
         requiresEquivalenceValidation: true,
     },
-    {
-        icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>,
-        title: "Suivi Fédéral (Entrée Express, etc.)",
-        description: "Suivi étape par étape de votre dossier fédéral jusqu'à la réception de votre visa.",
-        buttonText: "Suivre mon dossier fédéral",
-        buttonLink: '/forms/residence',
-        requiresEquivalenceValidation: true,
-    },
+
 ];
 
 const ServiceCard: React.FC<Service> = ({ icon, title, description, buttonText, buttonLink }) => {

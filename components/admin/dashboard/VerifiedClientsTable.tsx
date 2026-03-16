@@ -18,8 +18,6 @@ export default function VerifiedClientsTable({
           <tr className="bg-green-600 text-white">
             <th className="px-4 py-3 text-left">Name</th>
             <th className="px-4 py-3 text-left">Email</th>
-            <th className="px-4 py-3 text-left">Passport</th>
-            <th className="px-4 py-3 text-left">Nationality</th>
             <th className="px-4 py-3 text-left">Verified Type</th>
             <th className="px-4 py-3 text-left">Verified At</th>
             <th className="px-4 py-3 text-left">Actions</th>
@@ -30,8 +28,6 @@ export default function VerifiedClientsTable({
             <tr key={entry.id} className="border-b hover:bg-gray-50 transition-colors">
               <td className="px-4 py-4 font-medium">{entry.clientName}</td>
               <td className="px-4 py-4">{entry.clientEmail}</td>
-              <td className="px-4 py-4">{entry.passportNumber ?? 'N/A'}</td>
-              <td className="px-4 py-4">{entry.nationality ?? 'N/A'}</td>
               <td className="px-4 py-4">
                 <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                   {entry.verificationIcon} {entry.verificationType}

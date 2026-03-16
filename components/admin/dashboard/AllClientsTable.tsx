@@ -15,8 +15,6 @@ export default function AllClientsTable({ clients, onViewDetails }: AllClientsTa
           <tr className="bg-slate-600 text-white">
             <th className="px-4 py-3 text-left">Name</th>
             <th className="px-4 py-3 text-left">Email</th>
-            <th className="px-4 py-3 text-left">Passport</th>
-            <th className="px-4 py-3 text-left">Nationality</th>
             <th className="px-4 py-3 text-left">Registered Date</th>
             <th className="px-4 py-3 text-left">Actions</th>
           </tr>
@@ -26,8 +24,6 @@ export default function AllClientsTable({ clients, onViewDetails }: AllClientsTa
             <tr key={client.id} className="border-b hover:bg-gray-50 transition-colors">
               <td className="px-4 py-4 font-medium">{client.name}</td>
               <td className="px-4 py-4">{client.email}</td>
-              <td className="px-4 py-4">{client.passportNumber ?? 'N/A'}</td>
-              <td className="px-4 py-4">{client.nationality ?? 'N/A'}</td>
               <td className="px-4 py-4">{formatDate(client.createdAt)}</td>
               <td className="px-4 py-4">
                 <button
